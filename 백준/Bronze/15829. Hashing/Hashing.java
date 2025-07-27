@@ -1,5 +1,3 @@
-import static java.lang.Math.pow;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -12,16 +10,19 @@ public class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
+        final int r = 31;
+        final int M = 1234567891;
+
         int L = Integer.parseInt(br.readLine());
         String s = br.readLine();
-        int r = 31;
 
-        int result = 0;
+        long result = 0;
+        long rPow = 1;
 
         for (int i = 0; i < L; i++) {
-            result += (s.charAt(i) - 'a' + 1) * pow(r, i);
-
-            result = result % 1234567891;
+            int charValue = s.charAt(i) - 'a' + 1;
+            result = ((result + charValue * rPow) % M);
+            rPow = (rPow * r) % M;
         }
 
         bw.write(result + "");
